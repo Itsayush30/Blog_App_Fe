@@ -13,7 +13,7 @@ This project is a full stack blog application built with a Node.js backend and a
 - **Authentication**: Secure API endpoints using JWT.
 - Basic error handling and input validation.
 
-### Frontend (React, Vue, or Angular)
+### Frontend (React)
 - **Responsive Layout**: Includes a header, main content area, and footer.
 - **List View**: Displays a list of blog posts with titles and content.
 - **Detail View**: Displays detailed content for individual blog posts.
@@ -31,7 +31,7 @@ This project is a full stack blog application built with a Node.js backend and a
 
 ### Prerequisites
 
-- Node.js (v14.x or higher)
+- Node.js
 - npm 
 - MongoDB
 - React
