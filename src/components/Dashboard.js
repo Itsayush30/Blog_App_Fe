@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BlogApp = () => {
-  const [blogs, setBlogs] = useState([]); // Initialize blogs as an empty array
+  const [blogs, setBlogs] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [editId, setEditId] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get('http://localhost:3002/api/v1/posts');
-        // Extract data from response and set it to blogs
-        setBlogs(response.data.data); 
+        setBlogs(response.data.data);
       } catch (error) {
         console.error('Error fetching blogs:', error);
       }
@@ -21,7 +21,20 @@ const BlogApp = () => {
     fetchBlogs();
   }, []);
 
+  const validateForm = () => {
+    let formErrors = {};
+    if (!title.trim()) formErrors.title = 'Title is required';
+    if (!content.trim()) formErrors.content = 'Content is required';
+    return formErrors;
+  };
+
   const handlePost = async () => {
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+
     const blog = { title, content };
 
     try {
@@ -31,12 +44,12 @@ const BlogApp = () => {
         setEditId(null);
       } else {
         const response = await axios.post('http://localhost:3002/api/v1/posts', blog);
-        // Add the new blog to the existing blogs array
         setBlogs([...blogs, response.data.data]);
       }
 
       setTitle('');
       setContent('');
+      setErrors({});
     } catch (error) {
       console.error('Error posting or updating blog:', error);
     }
@@ -84,6 +97,7 @@ const BlogApp = () => {
               onChange={e => setTitle(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded"
             />
+            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
           </div>
           <div className="mb-2">
             <label className="block text-gray-700">Content</label>
@@ -93,6 +107,7 @@ const BlogApp = () => {
               className="w-full p-2 border border-gray-300 rounded"
               rows="5"
             />
+            {errors.content && <p className="text-red-500 text-sm">{errors.content}</p>}
           </div>
           <button
             type="submit"
@@ -127,7 +142,7 @@ const BlogApp = () => {
       </main>
 
       <footer className="bg-blue-600 text-white text-center py-2">
-        <p>© 2024 BlogApp</p>
+        <p>© 2024 BlogApp - Made by Ayush</p>
       </footer>
     </div>
   );

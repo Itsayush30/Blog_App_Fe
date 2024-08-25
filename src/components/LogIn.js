@@ -17,10 +17,8 @@ const LoginPage = () => {
       });
 
       if (response.data.success) {
-        // Store the token in local storage
         localStorage.setItem('token', response.data.data);
 
-        // Redirect to the /blog page
         navigate('/blog');
       } else {
         setError('Login failed. Please try again.');
