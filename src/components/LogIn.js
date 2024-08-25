@@ -11,7 +11,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3002/api/v1/login', {
+      const response = await axios.post('https://blog-app-2-l03v.onrender.com/api/v1/login', {
         email,
         password,
       });

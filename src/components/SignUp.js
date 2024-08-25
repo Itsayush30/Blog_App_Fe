@@ -12,7 +12,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3002/api/v1/user', {
+      const response = await axios.post('https://blog-app-2-l03v.onrender.com/api/v1/user', {
         name,
         email,
         password,

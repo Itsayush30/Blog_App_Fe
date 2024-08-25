@@ -11,7 +11,7 @@ const BlogApp = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:3002/api/v1/posts');
+        const response = await axios.get('https://blog-app-2-l03v.onrender.com/api/v1/posts');
         setBlogs(response.data.data);
       } catch (error) {
         console.error('Error fetching blogs:', error);
@@ -39,11 +39,11 @@ const BlogApp = () => {
 
     try {
       if (editId) {
-        const response = await axios.put(`http://localhost:3002/api/v1/posts/${editId}`, blog);
+        const response = await axios.put(`https://blog-app-2-l03v.onrender.com/api/v1/posts/${editId}`, blog);
         setBlogs(blogs.map(b => (b._id === editId ? response.data.data : b)));
         setEditId(null);
       } else {
-        const response = await axios.post('http://localhost:3002/api/v1/posts', blog);
+        const response = await axios.post('https://blog-app-2-l03v.onrender.com/api/v1/posts', blog);
         setBlogs([...blogs, response.data.data]);
       }
 
@@ -57,7 +57,7 @@ const BlogApp = () => {
 
   const handleEdit = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3002/api/v1/posts/${id}`);
+      const response = await axios.get(`https://blog-app-2-l03v.onrender.com/api/v1/posts/${id}`);
       setTitle(response.data.data.title);
       setContent(response.data.data.content);
       setEditId(id);
@@ -68,7 +68,7 @@ const BlogApp = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3002/api/v1/posts/${id}`);
+      await axios.delete(`https://blog-app-2-l03v.onrender.com/api/v1/posts/${id}`);
       setBlogs(blogs.filter(b => b._id !== id));
     } catch (error) {
       console.error('Error deleting blog:', error);
